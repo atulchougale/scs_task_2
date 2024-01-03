@@ -23,12 +23,24 @@ session_start();
           <h2>Welcome to a world of flavors !!</h2>
           <h3>"Where every dish tells a story. Join us on a culinary journey that delights the senses. 🍽️✨ #FoodiiExperience"</h3>
           <div class="check_menu1 m-3">
-            <a class="text-decoration-none" href="./products.php"
-              ><button type="button" class="btn btn-secondary">
+            <a class="text-decoration-none" href="./products.php">
+              <button type="button" class="btn btn-secondary">
                 Order Now
-              </button></a
-            >
+              </button></a>
           </div>
+          <?php
+              if(isset($_SESSION['user_email'])) {
+              } else {
+            ?>
+                <div class="check_menu1 m-3  ">
+            <a class="text-decoration-none" href="./loginPage.php">
+              <button type="button" class="btn btn-secondary ">
+                LOGIN
+              </button></a>
+          </div>
+          <?php
+              }
+          ?>
         </div>
       </div>
 
