@@ -123,23 +123,31 @@ if (isset($_POST['submit'])) {
     $query = mysqli_query($conn, $update);
 
     if ($query) {
-        if ($email2 === "admin@gmail.com") {
-            echo "<script>
-                alert('Admin Details Updated Successfully');
-                window.location.replace('adminDashboard.php');
-                </script>";
-        } else {
-            echo "<script>
-                alert('Details Updated Successfully');
-                window.location.replace('index.php');
-
-                </script>";
-        }
-    } else {
-        echo  "<script>
-        alert('Update failed ');
         
-        </script>";
-    }
-}
+            echo  "<script>
+            swal({
+                title: 'Successfully!',
+                text: 'Details Updated Successfully',
+                icon: 'success',
+                button: 'Ok, Done!',
+            }).then(function() {
+                window.location.href = 'Profile.php';
+            });
+          </script>";
+        }else {
+            echo  "<script>
+            swal({
+                title: 'Failed!',
+                text: 'Details Updated Fail',
+                icon: 'error',
+                button: 'Ok, Done!',
+            }).then(function() {
+                window.location.href = 'Profile.php';
+            });
+          </script>";
+        }
+    } 
+
 ?>
+
+

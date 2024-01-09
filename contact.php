@@ -107,21 +107,21 @@ session_start();
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-12">
           <div class="contact-form1 shadow-lg">
-            <form action="contactConnect.php" method="POST">
+            <form action="#" method="POST">
               <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Your Name*" name="name" />
+                <input type="text" class="form-control" placeholder="Your Name*" name="name" id="name1" required />
               </div>
               <div class="mb-3">
-                <input type="email" class="form-control" placeholder="Your Email*" name="email" />
+                <input type="email" class="form-control" placeholder="Your Email*" name="email" id="email"  required/>
               </div>
               <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Phone Number*" name="phone" />
+                <input type="text" class="form-control" placeholder="Phone Number*" name="phone" id="phone" required />
               </div>
               <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Subject" name="subject" />
+                <input type="text" class="form-control" placeholder="Subject" name="subject" id="subject" required />
               </div>
               <div class="mb-3">
-                <textarea class="form-control" rows="4" placeholder="Enter Your Message" name="message"></textarea>
+                <textarea class="form-control" rows="4" placeholder="Enter Your Message" name="message" id="message" required></textarea>
               </div>
               <div class="mb-3 text-center">
                 <button type="submit" name="submit" class="btn" id="btn-bgclr">
@@ -146,6 +146,54 @@ session_start();
   include("footer.php");
   ?>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+  <?php
+  include("dbconnect.php");
+
+  if (isset($_POST['submit'])) {
+
+    $name    = $_POST['name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $subject = $_POST['subject'];
+    $message = $_POST['message'];
+    
+    $sql = "INSERT INTO `contact`(`name`, `email`, `phone`,`subject`, `message` )
+    VALUES('$name', '$email', '$phone', '$subject', '$message')";
+
+$query = mysqli_query($conn, $sql);
+
+if ($query) {
+    echo  "<script>
+    swal({
+        title: 'Message send Successfully!',
+        text: 'Your Feedback is Very Helpful for us!',
+        icon: 'success',
+        button: 'Ok, Done',
+    }).then(function() {
+        window.location.href = 'contact.php';
+    });
+  </script>";
+    
+} else {
+    echo  "<script>
+    swal({
+        title: 'Message sending Failed!',
+        text: 'Message sending failing is fail please try Again !',
+        icon: 'error',
+        button: 'Ok, Done',
+    }).then(function() {
+        window.location.href = 'contact.php';
+    });
+  </script>";
+}
+
+    
+  }
+?>
+
+
 </body>
 
 </html>

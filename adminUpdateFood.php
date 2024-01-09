@@ -68,7 +68,7 @@ session_start();
                                     <div class="form-group">
                                         <label class="text-dark p-1 " for="category">Food Category</label>
                                         <select class="form-select " id="category" name="category">
-                                           
+
                                             <option value="Kolhapuri" <?php
                                                                         if ($data['category'] == 'Kolhapuri') {
                                                                             echo "selected";
@@ -119,7 +119,7 @@ session_start();
 
                                     <div class="form-group">
                                         <label for="" class="text-dark p-1">Food Image</label>
-                                        <input type="file" class="form-control "  id="image" name="foodimage" placeholder="Food Image">
+                                        <input type="file" class="form-control " id="image" name="foodimage" placeholder="Food Image">
                                     </div>
                                     <div class="mt-3 text-center">
                                         <button class="btn btn-primary align-content-center" type="submit" name="submit">Update
@@ -157,39 +157,53 @@ session_start();
 include 'dbconnect.php';
 
 if (isset($_POST['submit'])) {
-   
+
 
     $foodname    = $_POST['foodname'];
     $category    = $_POST['category'];
     $rating    = $_POST['rating'];
     $price   = $_POST['price'];
 
- // Check if a new image is uploaded
- if ($_FILES['foodimage']['size'] > 0) {
-    $file_name = $_FILES['foodimage']['name'];
-    $file_temp = $_FILES['foodimage']['tmp_name'];
-    $folder = 'foodImg/' . $file_name;
-    move_uploaded_file($file_temp, $folder);
+    // Check if a new image is uploaded
+    if ($_FILES['foodimage']['size'] > 0) {
+        $file_name = $_FILES['foodimage']['name'];
+        $file_temp = $_FILES['foodimage']['tmp_name'];
+        $folder = 'foodImg/' . $file_name;
+        move_uploaded_file($file_temp, $folder);
 
-    // Update all fields, including the new image
-    $update = "UPDATE `disesh` SET `foodname`='$foodname', `category`='$category', `rating`='$rating', `price`='$price', `foodimage`='$folder' WHERE id='$id'";
-} else {
-    // No new image, update other fields only
-    $update = "UPDATE `disesh` SET `foodname`='$foodname', `category`='$category', `rating`='$rating', `price`='$price' WHERE id='$id'";
-}
+        // Update all fields, including the new image
+        $update = "UPDATE `disesh` SET `foodname`='$foodname', `category`='$category', `rating`='$rating', `price`='$price', `foodimage`='$folder' WHERE id='$id'";
+    } else {
+        // No new image, update other fields only
+        $update = "UPDATE `disesh` SET `foodname`='$foodname', `category`='$category', `rating`='$rating', `price`='$price' WHERE id='$id'";
+    }
     $query = mysqli_query($conn, $update);
 
     if ($query) {
-
-        echo "<script>
-                alert('Dish Updated Successfully');
-                window.location.replace('adminAllProducts.php');
-                </script>";
-    } else {
         echo  "<script>
-        alert('Update failed ');
-        
-        </script>";
+            swal({
+                title: 'Successfully!',
+                text: 'Dish Updated Successfully',
+                icon: 'success',
+                button: 'Ok, Done!',
+                
+            }).then(function() {
+                window.location.href = 'adminAllProducts.php';
+            });
+          </script>";
+    } else {
+        echo "<script>
+                swal({
+                    title: 'Error!',
+                    text: 'Dish Updated Failed!',
+                    icon: 'error',
+                    button: 'Ok, Done!',
+                   
+                }).then(function() {
+                    window.location.href = 'adminUpdateFood.php';
+                });
+            </script>";
     }
 }
+
 ?>

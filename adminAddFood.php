@@ -26,16 +26,30 @@ if (isset($_POST['submit'])) {
     $query = mysqli_query($conn, $sql);
 
     if ($query) {
-        echo "<script>
-            alert('Dish Added successfully');
-            window.location.replace('adminAddProducts.php');
-        </script>";
-    } else {
-        echo "Error: " . mysqli_error($conn);
+        echo  "<script>
+            swal({
+                title: 'Successfully!',
+                text: 'Dish Added successfully',
+                icon: 'success',
+                button: 'Ok, Done!',
+            }).then(function() {
+                window.location.href = 'adminAddProducts.php';
+            });
+          </script>";
     }
-} else {
+    else {
     echo "<script>
-    alert('Food Doesn't Added.');
-    window.location.replace('adminAddProducts.php');
-</script>";
+                swal({
+                    title: 'Error!',
+                    text: 'Food Doesn't Added.',
+                    icon: 'error',
+                    button: 'Ok, Done!',
+                }).then(function() {
+                    window.location.href = 'adminAddProducts.php';
+                });
+            </script>";
+    }
 }
+
+
+?>
