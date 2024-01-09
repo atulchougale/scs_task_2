@@ -24,3 +24,28 @@ if ($data) {
         window.location.replace('adminCustomers.php');
     </script>";
 }
+ ?>
+
+
+
+<?php
+include 'dbconnect.php';
+
+$id1 = $_GET['id'];
+
+
+$query = "DELETE FROM contact WHERE id = '$id1'";
+$data = mysqli_query($conn, $query);
+
+if ($data) {
+    echo "<script>
+        alert('Message Deleted successfully');
+        window.location.replace('adminCustomers.php');
+    </script>";
+} else {
+
+    echo "<script>
+        alert('Message Failed to Delete' );
+        window.location.replace('adminCustomers.php');
+    </script>";
+}

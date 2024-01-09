@@ -68,14 +68,15 @@ session_start();
                 <tr>
                   <td><?php echo $data['id'] ?></td>
                   <td>
-                            <img src="<?php echo $data['photo'] ?>" alt="<?php echo $data['name'] ?>" width="80px" height="60px">
+                    <img src="<?php echo $data['photo'] ?>" alt="<?php echo $data['name'] ?>" width="80px" height="60px">
 
-                        </td>
+                  </td>
                   <td><?php echo $data['name'] ?></td>
                   <td><?php echo $data['email'] ?></td>
                   <td><?php echo $data['phone'] ?></td>
                   <td><?php echo $data['pin_code'] ?></td>
                   <td><?php echo $data['address'] ?></td>
+                  
                   <td>
                     <a href="adminCustDelete.php?id=<?php echo $data['id'] ?>" class="btn btn-danger" onclick=" return checkDelete()">Delete</a>
                   </td>
@@ -89,17 +90,18 @@ session_start();
 
         <div class="container mt-4">
           <h1 class="text-center">Customers Feedback/Suggestions</h1>
-          <div class="conntainer-fluid">
+          <div class="container-fluid">
             <table class="table table-dark table-striped mt-5 rounded text-center">
               <tr class="">
                 <th>ID</th>
-              
+
                 <th>FUll NAME</th>
                 <th>EMAIL</th>
                 <th>PHONE</th>
                 <th>SUBJECT</th>
                 <th>MASSAGE</th>
-              
+                <th>ACTION</th>
+
               </tr>
 
               <?php
@@ -112,13 +114,14 @@ session_start();
               ?>
                 <tr>
                   <td><?php echo $data['id'] ?></td>
-                
+
                   <td><?php echo $data['name'] ?></td>
                   <td><?php echo $data['email'] ?></td>
                   <td><?php echo $data['phone'] ?></td>
                   <td><?php echo $data['subject'] ?></td>
                   <td><?php echo $data['message'] ?></td>
-                  
+                  <td><a href="adminCustDelete.php?id=<?php echo $data['id'] ?>" class="btn btn-danger" onclick=" return checkDelete()">Delete</a></td>
+
                 </tr>
               <?php
               }
@@ -139,8 +142,16 @@ session_start();
       return confirm("Are you sure you want to delete this record ?");
     }
   </script>
+  
+
+
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+ 
+
+
 </body>
-</body>
+
+
 
 </html>
